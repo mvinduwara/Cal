@@ -1,0 +1,163 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --transition-theme: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --bg-page: transparent;
+  --bg-card: transparent;
+  --bg-card-inner: transparent;
+  --bg-btn-number: #18182a;
+  --bg-btn-number-hover: #21213a;
+  --bg-btn-action: #16162a;
+  --bg-btn-action-hover: #1e1e38;
+  --bg-btn-operator: #1e1530;
+  --bg-btn-operator-hover: #2a1f42;
+  --bg-btn-equals: #5a2ef0;
+  --bg-btn-equals-hover: #6c3ef5;
+  --bg-history-hover: rgba(255,255,255,0.04);
+  --bg-key-indicator: rgba(255,255,255,0.06);
+
+  --text-primary: #ede9ff;
+  --text-secondary: #7a7499;
+  --text-operator: #a590ff;
+  --text-action: #8880a8;
+  --text-display: #ffffff;
+  --text-expression: #4a4468;
+  --text-history-expr: #4a4468;
+  --text-history-result: #7a7499;
+
+  --border-card: rgba(255,255,255,0.055);
+  --border-btn: rgba(255,255,255,0.035);
+  --border-display: rgba(255,255,255,0.04);
+
+  --accent: #6c3ef5;
+  --accent-rgb: 108, 62, 245;
+  --accent-glow: rgba(108,62,245,0.35);
+  --accent-light: #b09eff;
+  --accent-operator: #7c5cff;
+
+  --shadow-card: none;
+  --shadow-equals: 0 8px 28px rgba(108,62,245,0.45);
+  --shadow-equals-hover: 0 14px 40px rgba(108,62,245,0.55);
+}
+
+[data-theme="light"] {
+  --bg-page: transparent;
+  --bg-card: transparent;
+  --bg-card-inner: transparent;
+  --bg-btn-number: #f4f2fc;
+  --bg-btn-number-hover: #ede9f8;
+  --bg-btn-action: #ede9f8;
+  --bg-btn-action-hover: #e4dff5;
+  --bg-btn-operator: #ece6ff;
+  --bg-btn-operator-hover: #e0d8ff;
+  --bg-btn-equals: #6c3ef5;
+  --bg-btn-equals-hover: #7d52f7;
+  --bg-history-hover: rgba(0,0,0,0.03);
+  --bg-key-indicator: rgba(0,0,0,0.04);
+
+  --text-primary: #1a1530;
+  --text-secondary: #7060a0;
+  --text-operator: #5a3ec8;
+  --text-action: #6a5a90;
+  --text-display: #0d0a20;
+  --text-expression: #b0a8d0;
+  --text-history-expr: #b0a8d0;
+  --text-history-result: #7060a0;
+
+  --border-card: transparent;
+  --border-btn: rgba(108,62,245,0.07);
+  --border-display: rgba(108,62,245,0.06);
+
+  --accent: #6c3ef5;
+  --accent-rgb: 108, 62, 245;
+  --accent-glow: rgba(108,62,245,0.20);
+  --accent-light: #6c3ef5;
+  --accent-operator: #6c3ef5;
+
+  --shadow-card: none;
+  --shadow-equals: 0 8px 28px rgba(108,62,245,0.35);
+  --shadow-equals-hover: 0 14px 40px rgba(108,62,245,0.45);
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: transparent;
+}
+
+body {
+  background: transparent;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-theme);
+}
+
+button {
+  font-family: var(--font-display);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+@keyframes ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+
+@keyframes digitUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes digitDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expressionFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes keyPop {
+  0% { opacity: 0; transform: scale(0.85); }
+  40% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes historyIn {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.display-up { animation: digitUp 0.16s cubic-bezier(0.22,1,0.36,1) both; }
+.display-down { animation: digitDown 0.16s cubic-bezier(0.22,1,0.36,1) both; }
+.expression-animate { animation: expressionFade 0.2s ease both; }
+.key-pop { animation: keyPop 0.5s ease both; }
+.history-in { animation: historyIn 0.22s ease both; }
